@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 11:07:02 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/02/26 19:12:44 by tde-sous         ###   ########.fr       */
+/*   Created: 2022/11/03 18:14:28 by tde-sous          #+#    #+#             */
+/*   Updated: 2022/11/04 20:37:21 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "libft.h"
 
-#include <unistd.h>
-#include <stdio.h>
-#include <sys/wait.h>
-#include <fcntl.h>
-#include <sys/types.h>
+void	*ft_memset(void *str, int c, size_t n)
+{
+	size_t	i;
+	char	*s;
 
-#endif
+	s = str;
+	i = 0;
+	while (i < n)
+	{
+		s[i] = (char)c;
+		i++;
+	}
+	return (s);
+}
+
+/*int	main(void)
+{
+	void str[] = "TESTE";
+	printf("%s", memset(str, '$', 2));
+	printf("%s", ft_memset(str, '$', 2));
+}*/

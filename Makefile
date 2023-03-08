@@ -6,7 +6,7 @@
 #    By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 07:06:29 by tde-sous          #+#    #+#              #
-#    Updated: 2023/03/07 07:54:25 by tde-sous         ###   ########.fr        #
+#    Updated: 2023/03/08 12:49:29 by tde-sous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,11 @@ $(OUTPUTFILE): $(OBJS) $(LIBFT_LIB)
 	cp $(LIBFT_LIB) $(NAME)													
 	$(LIBC) $(NAME) $(OBJS)
 	$(CC) $(FLAGS) $(SRCS) -L. -lpipex -o $(OUTPUTFILE)
+
+debug: $(OBJS) $(LIBFT_LIB)
+	cp $(LIBFT_LIB) $(NAME)													
+	$(LIBC) $(NAME) $(OBJS)
+	$(CC) -g $(SRCS) -L. -lpipex -o $(OUTPUTFILE)
 
 clean:
 	@make clean -C libft

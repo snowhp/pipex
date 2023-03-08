@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:06:55 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/08 12:59:06 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:06:42 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	pipex(int infile, int outfile, char **argv, char **env)
 	int	fd[2];
 	if(pipe(fd) == -1)/* Error check */
 	{
-		printf("Error opening the pipe");
+		perror("\033[31m[Error] \033[37mCreating pipe");
 		return;
 	}
 	int	id = fork();
@@ -27,20 +27,20 @@ void	pipex(int infile, int outfile, char **argv, char **env)
 		close(fd[0]);//Read end is closed because it is unused
 		dup2(infile, STDIN_FILENO);//Standart input becomes infile fd
 		dup2(fd[1], STDOUT_FILENO);//Standart output becomes fd[1] Write End of the pipe
-	
+		execute(argv[2], env);
 	}
 	else/* Parent process */
 	{
 		if(id == -1)
 		{
-			printf("Error duplicating calling process");// Checking for fork()
+			perror("\033[31m[Error] \033[37mCreating new process using fork");
 			return;
 		}
 		close(fd[1]);//Write end is closed because it is unused
 		wait(0);//Wait for child process
 		dup2(outfile, STDOUT_FILENO);
 		dup2(fd[0], STDIN_FILENO);
-		
+		execute(argv[3], env);
 	}
 }
 

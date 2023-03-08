@@ -24,7 +24,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 }
 
 /* Function that will read input from the terminal and return line. */
-int	get_next_line(char **line)
+/* int	get_next_line(char **line)
 {
 	char	*buffer;
 	int		i;
@@ -49,4 +49,4 @@ int	get_next_line(char **line)
 	*line = buffer;
 	free(buffer);
 	return (r);
-}
+} */

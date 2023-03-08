@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:06:55 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/07 07:02:54 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/07 08:14:47 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ int	main(int argc, char **argv, char **env)
 {
 	if(argc != 5 )
 	{
-		printf("Usage ./pipex infile cmd1 cmd2 outfile");
+		printf("Usage %s infile cmd1 cmd2 outfile", argv[0]);
 		return (1);
 	}
-	int f1 = open(argv[1] , O_RDONLY, 0777); /* Read only flag*/
+	int f1 = open(argv[1] , O_RDONLY, 0777);
 	if(f1 == -1)
 	{
 		perror("Error opening infile!");

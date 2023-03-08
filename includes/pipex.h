@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:07:02 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/07 07:01:19 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/07 07:55:52 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <stdlib.h>
-
-char	*ft_strjoin(char const *s1, char const *s2);
-//get_next_line from github and adapt 
+#include <string.h>
+#include "../libft/libft.h"
 
 #endif

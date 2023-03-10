@@ -1,52 +1,36 @@
 #include "../includes/pipex.h"
 
-/* This function will join s1 and s2, returning the contatenation of both. */
-char	*ft_strjoin(char const *s1, char const *s2)
+/* This function will execute the given commands and free properly if fails to find path*/
+void	execute(char **cmd, char **env)
 {
-	char	*dst;
-	int		size;
-	int		i;
+	char	*path;
 
-	if (!s1)
-		return (NULL);
-	i = -1;
-	size = ft_strlen(s1) + ft_strlen(s2) + 1;
-	dst = malloc(size * sizeof(char));
-	if (!dst)
-		return (NULL);
-	while (s1[++i])
-		dst[i] = s1[i];
-	i = -1;
-	while (s2[++i])
-		dst[i + ft_strlen(s1)] = s2[i];
-	dst[i + ft_strlen(s1)] = '\0';
-	return (dst);
+	path = ft_path(cmd, env);
+	if(execve(path, cmd, env) == -1)
+		perror("\033[31m[Error] \033[37mExecuting command");
 }
 
-/* Function that will read input from the terminal and return line. */
-/* int	get_next_line(char **line)
+char *ft_path(char *argv, char **env)
 {
-	char	*buffer;
-	int		i;
-	int		r;
-	char	c;
+	 	
+}
 
+/* This function will print specific errors and free cmd's.*/
+void ft_errorn(char **cmd1, char **cmd2, int errorn)
+{
+	int	i;
+
+	if(errorn == 1)
+		perror("\033[31m[Error] \033[37mCreating pipe");
+	if(errorn == 2)
+		perror("\033[31m[Error] \033[37mCreating new process using fork");
 	i = 0;
-	r = 0;
-	buffer = (char *)malloc(10000);
-	if (!buffer)
-		return (-1);
-	r = read(0, &c, 1);
-	while (r && c != '\n' && c != '\0')
-	{
-		if (c != '\n' && c != '\0')
-			buffer[i] = c;
-		i++;
-		r = read(0, &c, 1);
-	}
-	buffer[i] = '\n';
-	buffer[++i] = '\0';
-	*line = buffer;
-	free(buffer);
-	return (r);
-} */
+	while(cmd1[i])
+		free(cmd1[i++]);
+	free(cmd1);
+	i = 0;
+	while(cmd2[i])
+		free(cmd2[i++]);
+	free(cmd2);
+	exit(1);
+}

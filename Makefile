@@ -6,12 +6,12 @@
 #    By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 07:06:29 by tde-sous          #+#    #+#              #
-#    Updated: 2023/03/08 12:49:29 by tde-sous         ###   ########.fr        #
+#    Updated: 2023/03/11 17:03:58 by tde-sous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = srcs/pipex.c\
-	 srcs/utils.c\
+SRCS = src/pipex.c\
+	 src/utils.c\
 	
 OBJS = $(SRCS:.c=.o)
 
@@ -22,7 +22,7 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror
 LIBC = ar rc
 RM = rm -f
-OUTPUTFILE = a.out
+OUTPUTFILE = pipex
 
 all: $(OUTPUTFILE)
 

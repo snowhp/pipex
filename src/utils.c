@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 08:11:20 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/11 17:06:41 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:21:43 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	execute(char **cmd, char **env)
 		perror("Executing command");
 		exit(EXIT_FAILURE);
 	}
+	return (0);//check return
 }
 
 char *ft_path(char *cmd, char **env)
@@ -60,7 +61,7 @@ char *ft_path(char *cmd, char **env)
 }
 
 /* This function will print specific errors and free cmd's.*/
-void ft_errorn(char **cmd1, char **cmd2, int errorn)
+void ft_errorn(char **cmd1, char **cmd2, int errorn)// replace with struct
 {
 	ft_charppfree(cmd1);
 	ft_charppfree(cmd2);

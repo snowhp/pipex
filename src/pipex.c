@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:06:55 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/11 17:20:58 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/13 12:25:39 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	pipex(int infile, int outfile, char **argv, char **env)
 
 	id1 = fork();
 	cmd1 = ft_split(argv[2], ' ');
-	cmd2 = ft_split(argv[3], ' ');
+	cmd2 = ft_split(argv[3], ' ');//resolver "'"
 	if (id1 == 0)
 	{
 		if (pipe(fd) == -1)
@@ -32,7 +32,6 @@ void	pipex(int infile, int outfile, char **argv, char **env)
 		if (id2 == 0)
 		{
 			close(fd[0]);
-			wait(0);
 			dup2(infile, STDIN_FILENO);
 			dup2(fd[1], STDOUT_FILENO);
 			if (execute(cmd1, env) == 1)
@@ -40,6 +39,7 @@ void	pipex(int infile, int outfile, char **argv, char **env)
 		}
 		else
 		{
+			wait(0);
 			if (id2 == -1)
 				ft_errorn(cmd1, cmd2, 2);
 			close(fd[1]);
@@ -82,6 +82,6 @@ int	main(int argc, char **argv, char **env)
 		perror("Opening outfile");
 		exit (EXIT_FAILURE);
 	}
-	pipex(f1, f2, argv, env);
+	pipex(f1, f2, argv, env);//Missing closing pipes
 	exit (EXIT_SUCCESS);
 }

@@ -34,6 +34,12 @@ SRCS = ft_strchr.c \
                           ft_putstr_fd.c \
                           ft_putendl_fd.c \
                           ft_putnbr_fd.c \
+                          ft_int_putchar.c \
+                          ft_int_puthex.c \
+                          ft_int_putpointer.c \
+                          ft_int_putstr.c \
+                          ft_int_putnbr.c \
+                          ft_printf.c \
 
 BNS_SRCS = ft_lstnew.c \
             ft_lstadd_front.c \
@@ -60,10 +66,8 @@ all: $(NAME)
 $(NAME): $(OBJS)																	
 	$(LIBC) $(NAME) $(OBJS)
 
-$(NAMEBONUS) : $(BNS_OBJS) $(OBJS)
+bonus: $(BNS_OBJS) $(OBJS)
 	$(LIBC) $(NAME) $(BNS_OBJS) $(OBJS)
-
-bonus: $(NAMEBONUS)
 
 clean:
 	$(RM) $(OBJS) $(BNS_OBJS)

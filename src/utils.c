@@ -6,21 +6,21 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 08:11:20 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/13 12:21:43 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:25:10 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
 /* This function will execute the given commands and free properly if fails to find path*/
-int	execute(char **cmd, char **env)
+int	execute(t_pipex pipex, char **cmd, char **env)
 {
 	char	*path;
 
 	path = ft_path(cmd[0], env);
 	if (!path)
 	{
-		ft_errorn(NULL, NULL, 3);
+		ft_errorn(pipex, 3);
 		return (1);
 	}
 	if (execve(path, cmd, env) == -1)
@@ -35,8 +35,8 @@ char *ft_path(char *cmd, char **env)
 {
 	char	**paths;
 	char	*path;
-	int		i;
 	char	*part_path;
+	int		i;
 
 	i = 0;
 	while (ft_strnstr(env[i], "PATH", 4) == 0)
@@ -61,10 +61,20 @@ char *ft_path(char *cmd, char **env)
 }
 
 /* This function will print specific errors and free cmd's.*/
-void ft_errorn(char **cmd1, char **cmd2, int errorn)// replace with struct
+void ft_errorn(t_pipex pipex, int errorn)// replace with struct
 {
-	ft_charppfree(cmd1);
-	ft_charppfree(cmd2);
+	int	i;
+
+	i = 0;
+	while(pipex.cmd1[i])
+		free(pipex.cmd1[i++]);
+	free(pipex.cmd1);
+	i = 0;
+	while(pipex.cmd2[i])
+		free(pipex.cmd2[i++]);
+	free(pipex.cmd2);
+	close(pipex.infile_fd);
+	close(pipex.outfile_fd);
 	if (errorn == 1)
 		perror("Creating pipe");
 	if (errorn == 2)
@@ -76,12 +86,10 @@ void ft_errorn(char **cmd1, char **cmd2, int errorn)// replace with struct
 	exit(EXIT_FAILURE);
 }
 
-void ft_charppfree(char **str)
+void	ft_init_pipex(t_pipex *pipex)
 {
-	int	i;
-
-	i = 0;
-	while(str[i])
-		free(str[i++]);
-	free(str);
+	pipex->infile_fd = 0;
+	pipex->outfile_fd = 0;
+	pipex->cmd1 = NULL;
+	pipex->cmd2 = NULL;
 }

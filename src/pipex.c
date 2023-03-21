@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:06:55 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/13 12:25:39 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/16 19:27:05 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **env)
 {
 	int		f1;
 	int		f2;
-	
+
 	if (argc != 5)
 	{
 		printf("Usage %s infile cmd1 cmd2 outfile", argv[0]);//PRINTF

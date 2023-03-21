@@ -6,48 +6,42 @@
 #    By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 07:06:29 by tde-sous          #+#    #+#              #
-#    Updated: 2023/03/11 17:03:58 by tde-sous         ###   ########.fr        #
+#    Updated: 2023/03/16 19:01:42 by tde-sous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = src/pipex.c\
-	 src/utils.c\
-	
+	   src/utils.c
+
 OBJS = $(SRCS:.c=.o)
 
-NAME = libpipex.a
-LIBFT_DIR := libft
+NAME = pipex
+LIBFT		= libft.a
+LIBFT_DIR := ./libft
 LIBFT_LIB := $(LIBFT_DIR)/libft.a
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 LIBC = ar rc
 RM = rm -f
-OUTPUTFILE = pipex
 
-all: $(OUTPUTFILE)
+all: $(NAME)
 
-$(OUTPUTFILE): $(OBJS) $(LIBFT_LIB)
-	cp $(LIBFT_LIB) $(NAME)													
-	$(LIBC) $(NAME) $(OBJS)
-	$(CC) $(FLAGS) $(SRCS) -L. -lpipex -o $(OUTPUTFILE)
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(FLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME)
 
-debug: $(OBJS) $(LIBFT_LIB)
-	cp $(LIBFT_LIB) $(NAME)													
-	$(LIBC) $(NAME) $(OBJS)
-	$(CC) -g $(SRCS) -L. -lpipex -o $(OUTPUTFILE)
+debug: $(OBJS) $(LIBFT)
+	$(CC) $(FLAGS) -g $(OBJS) $(LIBFT_LIB) -o $(NAME)
+	
+$(LIBFT):
+	cd $(LIBFT_DIR) && $(MAKE)
 
 clean:
-	@make clean -C libft
+	cd $(LIBFT_DIR) && $(MAKE) clean
 	$(RM) $(OBJS) $(BNS_OBJS)
 
 fclean: clean
-	@make fclean -C libft
-	$(RM) $(NAME) $(OUTPUTFILE)
+	cd $(LIBFT_DIR) && $(MAKE) fclean
+	$(RM) $(NAME)
 
 re: fclean all
 
-$(LIBFT_LIB): makelibft ;
-
-.PHONY: makelibft
-makelibft:
-	$(MAKE) -C $(LIBFT_DIR)

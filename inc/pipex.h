@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:07:02 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/27 11:58:06 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:10:57 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_pipex
 	int		outfile_fd;
 	char**	cmd1;
 	char**	cmd2;
+	char*		path;
 }	t_pipex;
 
 void	ft_pipex(t_pipex *pipex, char **argv, char **env);

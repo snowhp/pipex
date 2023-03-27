@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 08:11:20 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/27 12:05:51 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:15:51 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 /* This function will execute the given commands and free properly if fails to find path*/
 int	execute(t_pipex *pipex, char **cmd, char **env)
 {
-	char	*path;
-
-	path = ft_path(cmd[0], env);
-	if (!path)
+	pipex->path = ft_path(cmd[0], env);
+	if (!pipex->path)
 	{
 		ft_errorn(pipex, 3);
 		return (1);
 	}
-	if (execve(path, cmd, env) == -1)
+	if (execve(pipex->path, cmd, env) == -1)
 	{
 		perror("Executing command");
 		exit(EXIT_FAILURE);
@@ -66,6 +64,7 @@ void ft_errorn(t_pipex *pipex, int errorn)
 	int	i;
 
 	i = 0;
+	free(pipex->path);
 	while(pipex->cmd1[i])
 		free(pipex->cmd1[i++]);
 	free(pipex->cmd1);
@@ -90,6 +89,7 @@ void	ft_init_pipex(t_pipex *pipex)
 {
 	pipex->infile_fd = 0;
 	pipex->outfile_fd = 0;
-	pipex->cmd1 = 0;
-	pipex->cmd2 = 0;
+	pipex->cmd1 = NULL;
+	pipex->cmd2 = NULL;
+	pipex->path = NULL;
 }

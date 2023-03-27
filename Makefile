@@ -6,7 +6,7 @@
 #    By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 07:06:29 by tde-sous          #+#    #+#              #
-#    Updated: 2023/03/16 19:01:42 by tde-sous         ###   ########.fr        #
+#    Updated: 2023/03/27 14:19:56 by tde-sous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ $(NAME): $(OBJS) $(LIBFT)
 	$(CC) $(FLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME)
 
 debug: $(OBJS) $(LIBFT)
-	$(CC) $(FLAGS) -g $(OBJS) $(LIBFT_LIB) -o $(NAME)
+	$(CC) $(FLAGS) -g $(SRCS) $(LIBFT_LIB) -o $(NAME)
 	
 $(LIBFT):
 	cd $(LIBFT_DIR) && $(MAKE)

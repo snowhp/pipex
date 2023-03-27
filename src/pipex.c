@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:06:55 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/27 12:05:40 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/27 15:21:13 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,43 +15,30 @@
 /* This function will create our pipe and handle all the fd's*/
 void	ft_pipex(t_pipex *pipex, char **argv, char **env)
 {
-	int		id1;
-	int		id2;
+	int		id;
 	int		fd[2];	
-
-	id1 = fork();
+	
 	pipex->cmd1 = ft_split(argv[2], ' ');
 	pipex->cmd2 = ft_split(argv[3], ' ');//resolver "'"
-	if (id1 == 0)
+	if (pipe(fd) == -1)
+		ft_errorn(pipex, 1);
+	id = fork();
+	if (id == 0)
 	{
-		if (pipe(fd) == -1)
-			ft_errorn(pipex, 1);
-		id2 = fork();
-		if (id2 == 0)
-		{
-			close(fd[0]);
-			dup2(pipex->infile_fd, STDIN_FILENO);
-			dup2(fd[1], STDOUT_FILENO);
-			if (execute(pipex, pipex->cmd1, env) == 1)
-				ft_errorn(pipex, 3);
-		}
-		else
-		{
-			wait(0);
-			if (id2 == -1)
-				ft_errorn(pipex, 2);
-			close(fd[1]);
-			dup2(pipex->outfile_fd, STDOUT_FILENO);
-			dup2(fd[0], STDIN_FILENO);
-			if (execute(pipex, pipex->cmd2, env) == 1)
-				ft_errorn(pipex, 3);
-		}
+		close(fd[0]);
+		dup2(pipex->infile_fd, STDIN_FILENO);
+		dup2(fd[1], STDOUT_FILENO);
+		execute(pipex, pipex->cmd1, env);
 	}
 	else
 	{
-		if (id1 == -1)
+		wait(NULL);
+		if (id == -1)
 			ft_errorn(pipex, 2);
-		while (wait(NULL) != -1 || errno != ECHILD);//Waiting for all childs to finish
+		close(fd[1]);
+		dup2(pipex->outfile_fd, STDOUT_FILENO);
+		dup2(fd[0], STDIN_FILENO);
+		execute(pipex, pipex->cmd2, env);
 	}
 }
 

@@ -6,14 +6,14 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 08:11:20 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/21 15:25:10 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/27 12:05:51 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
 /* This function will execute the given commands and free properly if fails to find path*/
-int	execute(t_pipex pipex, char **cmd, char **env)
+int	execute(t_pipex *pipex, char **cmd, char **env)
 {
 	char	*path;
 
@@ -61,20 +61,20 @@ char *ft_path(char *cmd, char **env)
 }
 
 /* This function will print specific errors and free cmd's.*/
-void ft_errorn(t_pipex pipex, int errorn)// replace with struct
+void ft_errorn(t_pipex *pipex, int errorn)
 {
 	int	i;
 
 	i = 0;
-	while(pipex.cmd1[i])
-		free(pipex.cmd1[i++]);
-	free(pipex.cmd1);
+	while(pipex->cmd1[i])
+		free(pipex->cmd1[i++]);
+	free(pipex->cmd1);
 	i = 0;
-	while(pipex.cmd2[i])
-		free(pipex.cmd2[i++]);
-	free(pipex.cmd2);
-	close(pipex.infile_fd);
-	close(pipex.outfile_fd);
+	while(pipex->cmd2[i])
+		free(pipex->cmd2[i++]);
+	free(pipex->cmd2);
+	close(pipex->infile_fd);
+	close(pipex->outfile_fd);
 	if (errorn == 1)
 		perror("Creating pipe");
 	if (errorn == 2)
@@ -90,6 +90,6 @@ void	ft_init_pipex(t_pipex *pipex)
 {
 	pipex->infile_fd = 0;
 	pipex->outfile_fd = 0;
-	pipex->cmd1 = NULL;
-	pipex->cmd2 = NULL;
+	pipex->cmd1 = 0;
+	pipex->cmd2 = 0;
 }

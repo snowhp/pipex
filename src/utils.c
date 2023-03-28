@@ -6,27 +6,20 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 08:11:20 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/27 15:15:51 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:28:11 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
 /* This function will execute the given commands and free properly if fails to find path*/
-int	execute(t_pipex *pipex, char **cmd, char **env)
+void	execute(t_pipex *pipex, char **cmd, char **env)
 {
 	pipex->path = ft_path(cmd[0], env);
 	if (!pipex->path)
-	{
 		ft_errorn(pipex, 3);
-		return (1);
-	}
 	if (execve(pipex->path, cmd, env) == -1)
-	{
-		perror("Executing command");
-		exit(EXIT_FAILURE);
-	}
-	return (0);//check return
+		ft_errorn(pipex, 4);
 }
 
 char *ft_path(char *cmd, char **env)
@@ -80,6 +73,8 @@ void ft_errorn(t_pipex *pipex, int errorn)
 		perror("Creating new process using fork");
 	if (errorn == 3)
 		perror("Command not found");
+	if (errorn == 4)
+		perror("Executing command");
 	if(errorn == 0)
 		return;
 	exit(EXIT_FAILURE);

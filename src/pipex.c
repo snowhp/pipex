@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:06:55 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/27 15:21:13 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:54:20 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ft_pipex(t_pipex *pipex, char **argv, char **env)
 	int		id;
 	int		fd[2];	
 	
-	pipex->cmd1 = ft_split(argv[2], ' ');
-	pipex->cmd2 = ft_split(argv[3], ' ');//resolver "'"
+	pipex->cmd1 = ft_joinsplit(argv[2], ' ', '\'');
+	pipex->cmd2 = ft_joinsplit(argv[3], ' ', '\'');
 	if (pipe(fd) == -1)
 		ft_errorn(pipex, 1);
 	id = fork();
@@ -32,13 +32,16 @@ void	ft_pipex(t_pipex *pipex, char **argv, char **env)
 	}
 	else
 	{
-		wait(NULL);
+		wait(0);
 		if (id == -1)
 			ft_errorn(pipex, 2);
 		close(fd[1]);
 		dup2(pipex->outfile_fd, STDOUT_FILENO);
 		dup2(fd[0], STDIN_FILENO);
-		execute(pipex, pipex->cmd2, env);
+		if (errno)
+			exit(1);
+		else
+			execute(pipex, pipex->cmd2, env);
 	}
 }
 
@@ -50,18 +53,18 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc != 5)
 	{
-		ft_printf("Usage %s infile cmd1 cmd2 outfile", argv[0]);//PRINTF
+		ft_printf("Usage %s infile cmd1 cmd2 outfile", argv[0]);
 		return (1);
 	}
 	ft_init_pipex(&pipex);
 	pipex.infile_fd = open(argv[1], O_RDONLY, 0444);
-	if (errno != 0)
+	if (errno)
 	{
 		perror("Opening infile");
 		exit(EXIT_FAILURE);
 	}
 	pipex.outfile_fd = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0664);
-	if (errno != 0)
+	if (errno)
 	{
 		perror("Opening outfile");
 		exit (EXIT_FAILURE);

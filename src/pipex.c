@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:06:55 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/28 12:54:20 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/29 23:05:44 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,26 @@
 /* This function will create our pipe and handle all the fd's*/
 void	ft_pipex(t_pipex *pipex, char **argv, char **env)
 {
-	int		id;
-	int		fd[2];	
-	
 	pipex->cmd1 = ft_joinsplit(argv[2], ' ', '\'');
 	pipex->cmd2 = ft_joinsplit(argv[3], ' ', '\'');
-	if (pipe(fd) == -1)
+	if (pipe(pipex->fd) == -1)
 		ft_errorn(pipex, 1);
-	id = fork();
-	if (id == 0)
+	pipex->id = fork();
+	if (pipex->id == 0)
 	{
-		close(fd[0]);
+		close(pipex->fd[0]);
 		dup2(pipex->infile_fd, STDIN_FILENO);
-		dup2(fd[1], STDOUT_FILENO);
+		dup2(pipex->fd[1], STDOUT_FILENO);
 		execute(pipex, pipex->cmd1, env);
 	}
 	else
 	{
-		wait(0);
-		if (id == -1)
+		waitpid(pipex->id, NULL, WNOHANG);
+		if (pipex->id == -1)
 			ft_errorn(pipex, 2);
-		close(fd[1]);
+		close(pipex->fd[1]);
 		dup2(pipex->outfile_fd, STDOUT_FILENO);
-		dup2(fd[0], STDIN_FILENO);
+		dup2(pipex->fd[0], STDIN_FILENO) == -1);
 		if (errno)
 			exit(1);
 		else
@@ -60,7 +57,7 @@ int	main(int argc, char **argv, char **env)
 	pipex.infile_fd = open(argv[1], O_RDONLY, 0444);
 	if (errno)
 	{
-		perror("Opening infile");
+		perror("input");
 		exit(EXIT_FAILURE);
 	}
 	pipex.outfile_fd = open(argv[4], O_CREAT | O_RDWR | O_TRUNC, 0664);

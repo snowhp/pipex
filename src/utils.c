@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 08:11:20 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/28 12:28:11 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:41:42 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-/* This function will execute the given commands and free properly if fails to find path*/
+/* This function will execute the given commands and free properly 
+if fails to find path*/
 void	execute(t_pipex *pipex, char **cmd, char **env)
 {
 	pipex->path = ft_path(cmd[0], env);
@@ -22,7 +23,7 @@ void	execute(t_pipex *pipex, char **cmd, char **env)
 		ft_errorn(pipex, 4);
 }
 
-char *ft_path(char *cmd, char **env)
+char	*ft_path(char *cmd, char **env)
 {
 	char	**paths;
 	char	*path;
@@ -52,17 +53,17 @@ char *ft_path(char *cmd, char **env)
 }
 
 /* This function will print specific errors and free cmd's.*/
-void ft_errorn(t_pipex *pipex, int errorn)
+void	ft_errorn(t_pipex *pipex, int errorn)
 {
 	int	i;
 
 	i = 0;
 	free(pipex->path);
-	while(pipex->cmd1[i])
+	while (pipex->cmd1[i])
 		free(pipex->cmd1[i++]);
 	free(pipex->cmd1);
 	i = 0;
-	while(pipex->cmd2[i])
+	while (pipex->cmd2[i])
 		free(pipex->cmd2[i++]);
 	free(pipex->cmd2);
 	close(pipex->infile_fd);
@@ -75,8 +76,8 @@ void ft_errorn(t_pipex *pipex, int errorn)
 		perror("Command not found");
 	if (errorn == 4)
 		perror("Executing command");
-	if(errorn == 0)
-		return;
+	if (errorn == 0)
+		return ;
 	exit(EXIT_FAILURE);
 }
 
@@ -84,6 +85,8 @@ void	ft_init_pipex(t_pipex *pipex)
 {
 	pipex->infile_fd = 0;
 	pipex->outfile_fd = 0;
+	pipex->id = 0;
+	pipex->fd[2] = 0;
 	pipex->cmd1 = NULL;
 	pipex->cmd2 = NULL;
 	pipex->path = NULL;

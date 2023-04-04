@@ -6,7 +6,7 @@
 /*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:06:55 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/29 23:05:44 by user             ###   ########.fr       */
+/*   Updated: 2023/04/04 21:56:58 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_pipex(t_pipex *pipex, char **argv, char **env)
 			ft_errorn(pipex, 2);
 		close(pipex->fd[1]);
 		dup2(pipex->outfile_fd, STDOUT_FILENO);
-		dup2(pipex->fd[0], STDIN_FILENO) == -1);
+		dup2(pipex->fd[0], STDIN_FILENO);
 		if (errno)
 			exit(1);
 		else

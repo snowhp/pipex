@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+         #
+#    By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/07 07:06:29 by tde-sous          #+#    #+#              #
-#    Updated: 2023/03/27 14:19:56 by tde-sous         ###   ########.fr        #
+#    Updated: 2023/04/08 19:35:05 by tde-sous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = src/pipex.c\
-	   src/utils.c
+SRCS = src/pipex.c \
+	   src/utils.c \
 
 OBJS = $(SRCS:.c=.o)
 
 NAME = pipex
 LIBFT		= libft.a
 LIBFT_DIR := ./libft
-LIBFT_LIB := $(LIBFT_DIR)/libft.a
+LIBFT_LIB := $(LIBFT_DIR)/$(LIBFT)
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 LIBC = ar rc
@@ -33,7 +33,7 @@ debug: $(OBJS) $(LIBFT)
 	$(CC) $(FLAGS) -g $(SRCS) $(LIBFT_LIB) -o $(NAME)
 	
 $(LIBFT):
-	cd $(LIBFT_DIR) && $(MAKE)
+	@cd $(LIBFT_DIR) && $(MAKE) --silent
 
 clean:
 	cd $(LIBFT_DIR) && $(MAKE) clean
@@ -45,3 +45,4 @@ fclean: clean
 
 re: fclean all
 
+.PHONY: $(LIBFT)

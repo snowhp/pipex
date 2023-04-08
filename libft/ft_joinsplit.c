@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 09:16:26 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/08 18:59:31 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/08 20:07:10 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ char	**ft_joinsplit(char *s, char c, char cj)
 	result = (char **)malloc((wcount + 1) * sizeof(char *));
 	if (!result)
 		return (NULL);
+	result[wcount] = 0;
 	i = 0;
 	while (i < wcount)
 	{
@@ -145,7 +146,9 @@ char	**ft_joinsplit(char *s, char c, char cj)
 	return (result);
 }
 
-/* int	main()
+/* #include <stdio.h>
+
+int	main()
 {
 	char	c;
 	char	cj;
@@ -194,4 +197,5 @@ char	**ft_joinsplit(char *s, char c, char cj)
 	}
 	free(arr);
 	return (0);
-} */
+}
+ */

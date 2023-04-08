@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_countchar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tde-sous <tde-sous@42.porto.com>           +#+  +:+       +#+        */
+/*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:34:59 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/03/27 15:28:39 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/06 19:59:10 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* This function takes a string (str), and a char c. 
 	Returning the numbers of times Char c is contained in str.*/
-int	ft_countchars(const char *str, char c)
+int	ft_countchar(const char *str, char c)
 {
 	int	i;
 	int	count;

@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 09:16:26 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/08 18:53:55 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/08 18:59:31 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,21 @@ int	ft_checkchar(char *str, char c)
 	extra = 0;
 	while (str[l])
 	{
-		if(str[l] == c && !ctrl)//space e fora ctrl
-			break;
-		if (ft_isquotes((str + l), 1) && ctrl)//final
-			break;
-		if (ft_isquotes((str + l), 0) && !ctrl)//inicio 
+		if (str[l] == c && !ctrl)
+			break ;
+		if (ft_isquotes((str + l), 1) && ctrl)
+			break ;
+		if (ft_isquotes((str + l), 0) && !ctrl)
 		{
 			ctrl = 1;
 			extra += ft_isquotes((str + l), 0);
-			if(extra == 2)
+			if (extra == 2)
 				l++;
 		}
 		l++;
 	}
 	return (l - extra);
 }
-#include <stdio.h>
 
 static char	*ft_word(char *str, char c)
 {
@@ -109,8 +108,8 @@ static char	*ft_word(char *str, char c)
 	if (!res)
 		return (NULL);
 	res[l] = '\0';
-	i = ft_isquotes(str, 1);//update based on first char
-	while(i-- > 0)
+	i = ft_isquotes(str, 1);
+	while (i-- > 0)
 		*str++;
 	i = 0;
 	while (i < l)
@@ -130,7 +129,6 @@ char	**ft_joinsplit(char *s, char c, char cj)
 	while (*s == ' ' || *s == '\t')
 		s++;
 	ft_wcount(s, c, &wcount);
-	printf("WC: %i\n", wcount);
 	if ((ft_countchar(s, cj) % 2) != 0)
 		return (0);
 	result = (char **)malloc((wcount + 1) * sizeof(char *));

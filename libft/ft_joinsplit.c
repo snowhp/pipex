@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 09:16:26 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/08 20:07:10 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/11 11:16:20 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static char	*ft_word(char *str, char c)
 	res[l] = '\0';
 	i = ft_isquotes(str, 1);
 	while (i-- > 0)
-		*str++;
+		(*str)++;
 	i = 0;
 	while (i < l)
 		res[i++] = *str++;

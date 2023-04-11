@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 19:11:05 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/11 11:20:01 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/08 19:11:07 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_pipex
 	int		infile_fd;
 	int		outfile_fd;
 	int		id;
-	int		*fd;
+	int		fd[2];
 	char	**cmd1;
 	char	**cmd2;
 	char	*path;

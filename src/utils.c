@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 08:11:20 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/18 12:11:32 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/18 13:19:22 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 if fails to find path*/
 void	execute(t_pipex *pipex, char **cmd, char **env)
 {
-	if (access(cmd, F_OK) == 0)
-		pipex->path = cmd;
+	if (access(cmd[0], F_OK) == 0)
+		pipex->path = cmd[0];
 	else
 		pipex->path = ft_path(cmd[0], env);
 	if (!pipex->path)

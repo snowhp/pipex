@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 09:16:26 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/11 11:16:20 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:47:12 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_isquotes(char *str, int ctrl)
 		if (str[1] == '\0' && !ctrl)
 			return (0);
 		return (1);
-	}	
+	}
 	else
 		return (0);
 }
@@ -110,14 +110,14 @@ static char	*ft_word(char *str, char c)
 	res[l] = '\0';
 	i = ft_isquotes(str, 1);
 	while (i-- > 0)
-		(*str)++;
+		str++;
 	i = 0;
 	while (i < l)
 		res[i++] = *str++;
 	return (res);
 }
 
-/* This function will split a string by give char c, but joining whats inside 
+/* This function will split a string by give char c, but joining whats inside
 cj, if its a even number otherwise return 0*/
 char	**ft_joinsplit(char *s, char c, char cj)
 {
@@ -146,7 +146,7 @@ char	**ft_joinsplit(char *s, char c, char cj)
 	return (result);
 }
 
-/* #include <stdio.h>
+#include <stdio.h>
 
 int	main()
 {
@@ -162,7 +162,7 @@ int	main()
 	while (arr[i])
 	{
 		printf("[%s]\n", arr[i]);
-		free(arr[i]);  
+		free(arr[i]);
 		i++;
 	}
 	free(arr);
@@ -173,8 +173,8 @@ int	main()
 	i = 0;
 	while (arr[i])
 	{
-		printf("[%s]\n", arr[i]); 
-		free(arr[i]);     
+		printf("[%s]\n", arr[i]);
+		free(arr[i]);
 		i++;
 	}
 	free(arr);
@@ -182,8 +182,8 @@ int	main()
 	i = 0;
 	while (arr[i])
 	{
-		printf("[%s]\n", arr[i]);     
-		free(arr[i]); 
+		printf("[%s]\n", arr[i]);
+		free(arr[i]);
 		i++;
 	}
 	free(arr);
@@ -191,11 +191,10 @@ int	main()
 	i = 0;
 	while (arr[i])
 	{
-		printf("[%s]\n", arr[i]);      
+		printf("[%s]\n", arr[i]);
 		free(arr[i]);
 		i++;
 	}
 	free(arr);
 	return (0);
 }
- */

@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 19:11:05 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/08 19:11:07 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/18 14:56:50 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_pipex
 {
 	int		infile_fd;
 	int		outfile_fd;
+	int		orig_stdout_fd;
 	int		id;
 	int		fd[2];
 	char	**cmd1;
@@ -35,9 +36,9 @@ typedef struct s_pipex
 }	t_pipex;
 
 void	ft_pipex(t_pipex *pipex, char **argv, char **env);
-void	ft_errorn(t_pipex *pipex, int errorn);
+void	ft_exit(t_pipex *pipex, int ecode);
 char	*ft_path(char *cmd, char **env);
-void	execute(t_pipex *pipex, char **cmd, char **env);
+void	ft_execute(t_pipex *pipex, char **cmd, char **env);
 void	ft_init_pipex(t_pipex *pipex);
 
 #endif

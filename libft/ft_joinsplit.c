@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 09:16:26 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/18 11:47:12 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:50:56 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ char	**ft_joinsplit(char *s, char c, char cj)
 	return (result);
 }
 
-#include <stdio.h>
+/* #include <stdio.h>
 
 int	main()
 {
@@ -198,3 +198,4 @@ int	main()
 	free(arr);
 	return (0);
 }
+ */

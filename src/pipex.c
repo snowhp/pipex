@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:06:55 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/20 12:06:04 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/20 12:16:35 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,16 @@ void	ft_pipex(t_pipex *pipex, char **argv, char **env)
 	pipex->id = fork();
 	if (pipex->id == 0)
 	{
-		close(pipex->fd[0]);
-		dup2(pipex->infile_fd, STDIN_FILENO);
-		dup2(pipex->fd[1], STDOUT_FILENO);
-		if (errno)
-			ft_exit(pipex, EXIT_FAILURE);
-		else
-			ft_execute(pipex, pipex->cmd1, env);
+		ft_fdchange(pipex);
+		ft_execute(pipex, pipex->cmd1, env);
 	}
 	else
 	{
 		waitpid(pipex->id, NULL, WNOHANG);
 		if (pipex->id == -1)
 			ft_exit(pipex, 2);
-		close(pipex->fd[1]);
-		dup2(pipex->outfile_fd, STDOUT_FILENO);
-		dup2(pipex->fd[0], STDIN_FILENO);
-		if (errno)
-			ft_exit(pipex, EXIT_FAILURE);
-		else
-			ft_execute(pipex, pipex->cmd2, env);
+		ft_fdchange(pipex);
+		ft_execute(pipex, pipex->cmd2, env);
 	}
 }
 

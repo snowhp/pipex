@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 19:11:05 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/18 14:56:50 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/20 12:17:04 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	ft_exit(t_pipex *pipex, int ecode);
 char	*ft_path(char *cmd, char **env);
 void	ft_execute(t_pipex *pipex, char **cmd, char **env);
 void	ft_init_pipex(t_pipex *pipex);
+void	ft_fdchange(t_pipex *pipex);
 
 #endif

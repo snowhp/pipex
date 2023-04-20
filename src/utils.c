@@ -6,7 +6,7 @@
 /*   By: tde-sous <tde-sous@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 08:11:20 by tde-sous          #+#    #+#             */
-/*   Updated: 2023/04/18 15:12:08 by tde-sous         ###   ########.fr       */
+/*   Updated: 2023/04/20 12:16:59 by tde-sous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,26 @@ void	ft_exit(t_pipex *pipex, int ecode)
 	if (pipex->outfile_fd != 0)
 		close(pipex->outfile_fd);
 	exit(ecode);
+}
+
+void	ft_fdchange(t_pipex *pipex)
+{
+	if (pipex->id == 0)
+	{
+		close(pipex->fd[0]);
+		dup2(pipex->infile_fd, STDIN_FILENO);
+		dup2(pipex->fd[1], STDOUT_FILENO);
+		if (errno)
+			ft_exit(pipex, EXIT_FAILURE);
+	}
+	else
+	{
+		close(pipex->fd[1]);
+		dup2(pipex->outfile_fd, STDOUT_FILENO);
+		dup2(pipex->fd[0], STDIN_FILENO);
+		if (errno)
+			ft_exit(pipex, EXIT_FAILURE);
+	}
 }
 
 void	ft_init_pipex(t_pipex *pipex)
